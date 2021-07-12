@@ -14,13 +14,14 @@ const initialState = {
 export default function CheckoutPage(props) {
   const [data, setData] = useState(initialState)
   const { state, resetCart, calculateCartTotal } = useProvideCart()
+  const [id, setId] = useState('')
 
   const placeOrder = async (orderFormData) => {
     console.log('handlePlaceOrder', orderFormData)
     let orderData = {
       customerDetails: orderFormData,
       items: state.cart,
-      orderTotal: calculateCartTotal(),
+      orderTotal: calculateCartTotal,
     }
     setData({
       ...data,
@@ -71,7 +72,7 @@ export default function CheckoutPage(props) {
           <Container className='h-50'>
             <div className='row justify-content-center'>
               {data.isConfirmed && <p style={{fontSize: '26px', marginBottom: '30px', marginTop: '20px'}}>Your order is confirmed!</p>}
-
+              <p >Your Order ID is : <b>{id}</b> </p>
               <div className='col-sm-12 d-flex justify-content-center'>
                 <p>You'll receive confirmation in your email shortly.</p>
               </div>

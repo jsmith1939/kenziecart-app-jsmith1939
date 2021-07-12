@@ -33,7 +33,6 @@ router
       /* create new order using Order model
         and return order ID
       */
-      res.json(orderData)
     } catch (error) {
       next(new Error('Error Placing Order'))
     }
