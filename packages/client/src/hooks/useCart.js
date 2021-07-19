@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, createContext } from 'react'
+import React, { useReducer, useContext, createContext, useEffect } from 'react'
 
 const initialState = {
   cart: [],
@@ -40,7 +40,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: nextCart,
-        itemCount: state.itemCount + 1,
+        itemCount: state.itemCount + numItemsToAdd,
+        cartTotal: calculateCartTotal(nextCart),
       }
     case 'REMOVE_ITEM':
       nextCart = nextCart
@@ -110,6 +111,7 @@ const useProvideCart = () => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: id,
+      
     })
   }
 
@@ -130,7 +132,7 @@ const useProvideCart = () => {
     return !!state.cart.find((item) => item._id === id)
   }
 
-  /*  Check for saved local cart on load and dispatch to set initial state
+  // Check for saved local cart on load and dispatch to set initial state
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('KenzieCart')) || false
     if (savedCart) {
@@ -139,7 +141,7 @@ const useProvideCart = () => {
         payload: savedCart,
       })
     }
-  }, [dispatch]) */
+  }, [dispatch])
 
   return {
     state,

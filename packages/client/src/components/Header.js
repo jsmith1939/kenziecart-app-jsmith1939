@@ -3,11 +3,32 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Badge } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons/faShoppingBag'
-import { useUI, useProvideCart } from 'hooks'
+import { useUI, useProvideCart, useCurrency } from 'hooks'
 import CartSidebar from 'components/CartSidebar'
 export default function Header() {
   const { openSidebar } = useUI()
   const { state } = useProvideCart()
+  const {setCurrency} = useCurrency();
+
+  // Sheikh help with the toggle code:
+  const currencyConversion = (cash) => {
+    console.log(cash)
+    if (cash === 'USD') {
+      const USD = {
+        currency: 'USD',
+        multiplier: 1,
+        symbol: '$'
+      }
+      setCurrency(USD);
+    } else if (cash === 'Euro') {
+      const Euro = {
+        currency: 'Euro',
+        multiplier: .8,
+        symbol: '€'
+      }
+      setCurrency(Euro);
+    }
+  }
 
   return (
     <>
@@ -26,6 +47,12 @@ export default function Header() {
             <LinkContainer className='d-flex align-items-center' to={`/`}  style={{color: 'white', marginRight: '20px'}}>
               <Nav.Link>Shop</Nav.Link>
             </LinkContainer>
+            <label for="cars">Choose a car:</label>
+
+            <select onChange={({target: {value}}) => currencyConversion(value)} name="currency" id="currency">
+              <option value="USD">USD</option>
+              <option value="Euro">Euro</option>
+            </select> 
             <div
               className='d-flex align-items-center ml-1'
               onClick={openSidebar}

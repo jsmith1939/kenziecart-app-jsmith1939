@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import App from 'App'
 import { AppRouter } from 'AppRouter'
 import { ManagedUIContext } from 'hooks/useUI'
+import { CurrencyContext } from 'hooks/useCurrency'
 import { ProvideCart } from 'hooks/useCart'
 import reportWebVitals from 'reportWebVitals'
 import './index.scss'
@@ -11,9 +12,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ManagedUIContext>
       <ProvideCart>
+        <CurrencyContext>
         <AppRouter>
           <App />
         </AppRouter>
+        </CurrencyContext>
       </ProvideCart>
     </ManagedUIContext>
   </React.StrictMode>,
