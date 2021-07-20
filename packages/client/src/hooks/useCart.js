@@ -37,6 +37,7 @@ const reducer = (state, action) => {
         nextCart.push(action.payload)
       }
 
+      //Apparrently I already made the necessary changes to useCart without realizing this
       return {
         ...state,
         cart: nextCart,
