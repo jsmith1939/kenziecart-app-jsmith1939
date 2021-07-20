@@ -67,6 +67,9 @@ const reducer = (state, action) => {
       }
     case 'RESET_CART':
       return { ...initialState }
+    case 'APPLY_COUPON':
+      const currentTotal = calculateCartTotal(state.cart)
+      return { ...state, cartTotal: currentTotal * action.payload}
     default:
       return state
   }
@@ -132,6 +135,13 @@ const useProvideCart = () => {
     return !!state.cart.find((item) => item._id === id)
   }
 
+  const applyCoupon = (percent) => {
+    dispatch({
+      type: 'APPLY_COUPON',
+      payload: percent
+    })
+  }
+
   // Check for saved local cart on load and dispatch to set initial state
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('KenzieCart')) || false
@@ -150,6 +160,8 @@ const useProvideCart = () => {
     removeAllItems,
     resetCart,
     isItemInCart,
+    calculateCartTotal,
+    applyCoupon
   }
 }
 

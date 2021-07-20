@@ -3,6 +3,7 @@ import authRouter from './auth'
 import userRouter from './users'
 import ordersRouter from './orders'
 import productRouter from './products'
+import couponRoute from './coupons'
 
 const router = express.Router()
 
@@ -14,5 +15,6 @@ router.use('/auth', authRouter)
 router.use('/users', userRouter)
 router.use('/orders', ordersRouter)
 router.use('/products', productRouter)
+router.use('/coupons', couponRoute)
 
 module.exports = router
